@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <group>
+
+        <property name="productionMode"     defaultValue="true" description="是否部署线上" />
+
+        <property name="mysql.url"     defaultValue="jdbc:mysql://127.0.0.1/chong4" description="mysql数据库地址" />
+        <property name="mysql.user"    defaultValue="root" description="mysql数据库的用户名"/>
+        <property name="mysql.pass"    defaultValue="Zhang3o38" description="mysql数据库的密码"/>
+
+
+
+        <property name="logging.path"           defaultValue="/home/admin/chong4"  description="love日志输出基本目录"/>
+        <property name="logging.root"           defaultValue="${logging.path}/logs" description="love日志输出下级目录"/>
+        <property name="logging.level"          defaultValue="info"   description="love日志输出级别"/>
+        <property name="logging.charset"        defaultValue="UTF-8"  description="love日志输出编码"/>
+
+
+    </group>
+    <script>
+        <!--<generate template="WEB-INF/web.xml" />
+        <generate template="WEB-INF/common/resources.xml" />-->
+        <generate template="web.xml" destfile="WEB-INF/web.xml" charset="UTF-8" />
+        <generate template="webx.xml" destfile="WEB-INF/webx.xml" charset="UTF-8" />
+        <generate template="logback.xml" destfile="WEB-INF/logback.xml" charset="UTF-8" />
+        <generate template="datasource.xml" destfile="WEB-INF/app/datasource.xml" charset="UTF-8" />
+
+        <generate template="service.xml" destfile="WEB-INF/app/service.xml" charset="UTF-8" />
+    </script>
+</config>

@@ -1,0 +1,18 @@
+<div class="list cb db" style='height:92px;margin-top:13px'>
+    <!-- 广告位：Lei -->
+</div>
+<!--/Box-->
+<div class="xiangguan cb db" style='text-align:center'>
+    <h4>最后更新时间:$dateUtil.formatDate($!indexUpdate.lastUpdateTime,'MM-dd HH:mm:ss')</h4>
+    <ul>
+        #if(!$keywordList)
+            <p>No polls are available.</p>
+        #else
+            <ul>
+                #foreach($keyword in $!keywordList)
+                    <li><a href="/${keyword.alias}/">$keyword.name</a></li>
+                #end
+            </ul>
+        #end
+    </ul>
+</div>

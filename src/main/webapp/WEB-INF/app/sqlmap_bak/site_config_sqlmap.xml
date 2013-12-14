@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SiteConfigMapper">
+
+    <resultMap type="com.wenlie.chong4.bean.SiteConfig" id="siteConfigMapper">
+        <id column="id" property="id"/>
+        <result column="domain" property="domain"/>
+        <result column="site_name" property="siteName"/>
+        <result column="site_desc" property="siteDesc"/>
+        <result column="list_title_template" property="listTitleTemplate"/>
+        <result column="list_desc_template" property="listDescTemplate"/>
+        <result column="last_updated_time" property="lastUpdatedTime"/>
+        <result column="last_updated_id" property="lastUpdatedId"/>
+    </resultMap>
+
+    <select id="getConfigByServerName" parameterType="String" resultMap="siteConfigMapper">
+        SELECT id,domain,site_name,site_desc,list_title_template,list_desc_template,last_updated_time,last_updated_id
+        FROM site_config WHERE domain = #{domain}
+    </select>
+
+    <update id="updateConfig" parameterType="SiteConfig">
+        UPDATE site_config SET
+        domain=#{domain},
+        site_name=#{siteName},
+        site_desc=#{siteDesc},
+        list_title_template=#{listTitleTemplate},
+        list_desc_template=#{listDescTemplate},
+        last_updated_time=#{lastUpdatedTime},
+        last_updated_id=#{lastUpdatedId}
+        where id=#{id}
+    </update>
+
+
+
+</mapper>

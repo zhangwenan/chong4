@@ -1,0 +1,55 @@
+<!-- 特价布艺沙发热卖排行榜开始 -->
+<div id="main">
+    #*<ul>
+        {% for item in top_list %}
+        <li>
+            <h3>【特价布艺沙发 <span>第3名</span> 】</h3>
+            <div class="fk">
+                <a data-type="0" data-itemid="16325965301" data-rd="1" data-style="2" data-tmpl="290x380" target="_blank">
+                    全友家居家私 简约布艺沙发组合现代L型大客厅转角 102003爆款                        </a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>*#
+    <div style="clear:both"></div>
+</div>
+<!-- 同级栏目  -->
+<div class="xiangguan about">
+    <ul>
+        <LI><B>您是否在找:</B></Li>
+        #foreach($keyword in $guessList)
+            <li><a href="/${keyword.alias}/">${keyword.name}</a></li>
+        #end
+    </ul>
+</div>
+<!-- 更多特价布艺沙发及相关产品 -->
+<div class="list cb db" id='list-content'>
+    <div class="mt"><STRONG>$!{pageTitle}</STRONG></div>
+    <ul>
+        #foreach($item in $alimamaItems)
+            <li>
+                <a data-type="0" biz-itemid="$!{item.itemId}" data-style="2" data-tmpl="230x312" target="_blank">
+                    $!{item.itemTitle}
+                </a>
+            </li>
+        #end
+    </ul>
+</div>
+<!-- 最新产品 -->
+<div class="xiangguan cb db">
+    <h4>最新榜单</h4>
+    <ul>
+    #foreach($keyword in $newList)
+        <li><a href="/${keyword.alias}/">${keyword.name}</a></li>
+    #end
+    </ul>
+</div>
+<!-- 热门推荐 -->
+<div class="xiangguan cb db">
+    <h4>热门榜单</h4>
+    <ul>
+        #foreach($keyword in $hotList)
+            <li><a href="/${keyword.alias}/">${keyword.name}</a></li>
+        #end
+    </ul>
+</div>

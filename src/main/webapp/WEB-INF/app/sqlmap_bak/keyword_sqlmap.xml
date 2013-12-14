@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="KeywordMapper">
+
+    <resultMap id="keywordMapper" type="com.wenlie.chong4.bean.Keyword">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="alias" property="alias"/>
+    </resultMap>
+
+    <select id="getKeywordList" parameterType="ParamterMap" resultMap="keywordMapper">
+        SELECT id,name,alias FROM keyword WHERE id >= #{startId} limit #{length}
+    </select>
+
+    <select id="getPrevIdList" parameterType="ParamterMap" resultType="int">
+        <![CDATA[
+        SELECT id FROM keyword WHERE id<#{startId} limit #{length}
+        ]]>
+    </select>
+
+    <select id="getNextIdList" parameterType="ParamterMap" resultType="int">
+        SELECT id FROM keyword WHERE id>#{startId} limit #{length}
+    </select>
+
+
+    <select id="getFirstId" resultType="int">
+        SELECT id FROM keyword limit 1
+    </select>
+
+    <select id="getLastId" resultType="int">
+        SELECT id FROM keyword ORDER BY id DESC limit 1
+    </select>
+
+</mapper>

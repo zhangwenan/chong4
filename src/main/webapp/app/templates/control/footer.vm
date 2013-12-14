@@ -1,0 +1,17 @@
+<!-- 版权信息 -->
+<div class="dibu">
+    <p>免责声明：
+        #if($!isIndex == "true")
+            本站
+        #else
+            <a href="/${keyword.alias}/">${keyword.name}</a>
+        #end
+        商品及相关信息收集于淘宝网，淘宝商城以及京东商城，拍拍网，易讯网等购物网站，欢迎大家对网站内容侵犯版权等不健康行为进行监督和举报。
+    </p>
+
+    <p>Copyright © 2005-2013
+        #if($!isDetail == "true")
+            <a href="/${keyword.alias}/">淘宝网${keyword.name}正品,官网价格</a></p>
+        #end
+</div>
+$!tmsUtil.except($!siteStatus)

@@ -1,11 +1,74 @@
+DROP DATABASE IF EXISTS `chong4`;
+CREATE DATABASE `chong4`;
+USE `chong4`;
+
+## 文章
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `article_id` int(11) NOT NULL UNIQUE COMMENT '目标站点的文章id',
-  `title` varchar (80) NOT NULL DEFAULT '' COMMENT '文章标题',
-  ``
+  `original_id` int(11) NOT NULL UNIQUE COMMENT '目标站点的文章id',
+  `title` varchar (80) NOT NULL DEFAULT '' COMMENT '标题',
+  `summary` varchar (500) NOT NULL DEFAULT '' COMMENT '摘要',
+  `content` text NULL COMMENT '内容',
+  `author` varchar(10) NULL COMMENT '作者',
+  `create_time` datetime NULL COMMENT '创建时间',
+  `publish_time` datetime NULL COMMENT '发布时间',
+  `starred` enum('yes', 'no') NOT NULL DEFAULT 'no' COMMENT '是否推荐',
+  `comment` int(11) NOT NULL DEFAULT 0 COMMENT '评论数',
+  `read` int(11) NOT NULL DEFAULT 0 COMMENT '阅读数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='存储自己掌握的QQ账号';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章表';
+
+
+## 主题
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE `topic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `name` varchar (80) NOT NULL DEFAULT '' COMMENT '主题名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主题表';
+
+
+## 标签
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `name` int(11) NOT NULL UNIQUE COMMENT '标签名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标签表/分类表';
+
+
+## 文章/标签 关系表
+DROP TABLE IF EXISTS `article_tag`;
+CREATE TABLE `article_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `tag_id` int(11) NOT NULL COMMENT '标签id',
+  `original_id` int(11) NOT NULL COMMENT '文章原始id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章标签关系表';
+
+
+
+## 相关文章推荐
+DROP TABLE IF EXISTS `ref_article`;
+CREATE TABLE `ref_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `original_id` int(11) NOT NULL COMMENT '文章原始id',
+  `ref_original_id` int(11) NOT NULL COMMENT '相关推荐的文章原始id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='相关文章';
+
+
+## 文章中的链接
+DROP TABLE IF EXISTS `anchor`;
+CREATE TABLE `anchor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `original_id` varchar (20) NOT NULL UNIQUE COMMENT '锚点id',
+  `item_id` varchar (20) NULL COMMENT '锚点指向的itemId',
+  `re_tao_link` varchar (500) NULL COMMENT '指向淘宝热卖的url',
+  `direct_tao_link` varchar (500) NULL COMMENT '直接跳转到宝贝详情的Url',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章中的锚点表';
 
 
 

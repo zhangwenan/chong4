@@ -1,8 +1,11 @@
 package com.wenlie.chong4.bean;
 
+import lombok.Data;
+
 /**
  * Created by wenlie on 13-12-17.
  */
+@Data
 public class Tag {
 
 

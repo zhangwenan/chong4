@@ -32,8 +32,12 @@
         <constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>
 
-    <!--<bean id="keywordService" class="com.wenlie.chong4.service.impl.KeywordServiceImpl"></bean>-->
-    <!--<bean id="sysConfigService" class="com.wenlie.chong4.service.impl.SysConfigServiceImpl"></bean>-->
-    <!--<bean id="siteConfigService" class="com.wenlie.chong4.service.impl.SiteConfigServicImpl"></bean>-->
+    <bean id="topicService" class="com.wenlie.chong4.service.impl.TopicArticleServiceImpl"></bean>
+    <bean id="topicArticleService" class="com.wenlie.chong4.service.impl.TopicArticleServiceImpl"></bean>
+    <bean id="tagService" class="com.wenlie.chong4.service.impl.TagServiceImpl"></bean>
+    <bean id="refArticleService" class="com.wenlie.chong4.service.impl.RefArticleServiceImpl"></bean>
+    <bean id="articleTagService" class="com.wenlie.chong4.service.impl.ArticleTagServiceImpl"></bean>
+    <bean id="articleService" class="com.wenlie.chong4.service.impl.ArticleServiceImpl"></bean>
+    <bean id="anchorService" class="com.wenlie.chong4.service.impl.AnchorServiceImpl"></bean>
 
 </beans>

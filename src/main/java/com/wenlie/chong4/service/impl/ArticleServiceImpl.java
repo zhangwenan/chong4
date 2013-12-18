@@ -39,10 +39,6 @@ public class ArticleServiceImpl implements ArticleService {
         sqlSession.delete("Article.deleteById", id);
     }
 
-    @Override
-    public void deleteByOriginalId(int originalId) {
-        sqlSession.delete("Article.deleteByOriginalId", originalId);
-    }
 
     @Override
     public void update(Article article) {
@@ -54,13 +50,5 @@ public class ArticleServiceImpl implements ArticleService {
         return sqlSession.selectOne("Article.getById", id);
     }
 
-    @Override
-    public Article getByOriginalId(int originalId) {
-        return sqlSession.selectOne("Article.getByOriginalId", originalId);
-    }
 
-    @Override
-    public List<Article> getRefArticles(Article article) {
-        return sqlSession.selectList("Article.getRefArticles", article);
-    }
 }

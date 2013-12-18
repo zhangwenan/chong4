@@ -18,17 +18,17 @@ public class TopicArticleServiceImpl implements TopicArticleService {
 
     @Override
     public void add(TopicArticle topicArticle) {
-
+        sqlSession.insert("TopicArticle.add", topicArticle);
     }
 
     @Override
     public void batchAdd(List<TopicArticle> topicArticles) {
-
+        sqlSession.insert("TopicArticle.batchAdd", topicArticles);
     }
 
     @Override
     public void deleteById(int id) {
-
+        sqlSession.delete("TopicArticle.deleteById", id);
     }
 
     @Override

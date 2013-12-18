@@ -21,9 +21,13 @@
 
     <typeAliases>
 
-        <typeAlias type="com.wenlie.chong4.bean.Keyword" alias="keyword" />
-        <typeAlias type="com.wenlie.chong4.bean.IndexUpdate" alias="indexUpdate" />
-        <typeAlias type="com.wenlie.chong4.bean.KeywordItemId" alias="keywordItemId" />
-        <typeAlias type="com.wenlie.chong4.bean.AlimamaItem" alias="alimamaItem" />
+        <typeAlias type="com.wenlie.chong4.bean.Article" alias="article" />
+        <typeAlias type="com.wenlie.chong4.bean.Anchor" alias="anchor" />
+        <typeAlias type="com.wenlie.chong4.bean.Tag" alias="tag" />
+        <typeAlias type="com.wenlie.chong4.bean.Topic" alias="topic" />
+        <typeAlias type="com.wenlie.chong4.bean.ArticleTag" alias="articleTag" />
+        <typeAlias type="com.wenlie.chong4.bean.RefArticle" alias="refArticle" />
+        <typeAlias type="com.wenlie.chong4.bean.TopicArticle" alias="topicArticle" />
+
     </typeAliases>
 </configuration>

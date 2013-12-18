@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Article">
+
+    <resultMap type="com.wenlie.chong4.bean.Article" id="article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="summary" property="summary"/>
+        <result column="content" property="content"/>
+        <result column="author" property="author"/>
+        <result column="create_time" property="createTime"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="starred" property="starred"/>
+        <result column="comment" property="comment"/>
+        <result column="read" property="read"/>
+    </resultMap>
+
+
+
+
+    <insert id="add" parameterType="article">
+        INSERT INTO article (
+        id,
+        title,
+        summary,
+        content,
+        author,
+        create_time,
+        publish_time,
+        starred,
+        comment,
+        read
+        )
+        VALUES
+        (
+        #{id},
+        #{title},
+        #{summary},
+        #{content},
+        #{author},
+        #{createTime},
+        #{publishTime},
+        #{starred},
+        #{comment}
+        )
+    </insert>
+
+
+    <insert id="batchAdd" parameterType="java.util.List">
+        INSERT INTO article (
+        id,
+        title,
+        summary,
+        content,
+        author,
+        create_time,
+        publish_time,
+        starred,
+        comment,
+        read
+        )
+
+        VALUES
+
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.title},
+            #{item.summary},
+            #{item.content},
+            #{item.author},
+            #{item.createTime},
+            #{item.publishTime},
+            #{item.starred},
+            #{item.comment},
+            #{item.read}
+            )
+        </foreach>
+    </insert>
+
+
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM article WHERE id=#{value}
+    </delete>
+
+
+
+
+    <update id="update" parameterType="article">
+        UPDATE article SET
+
+        id = #{id},
+        title = #{title},
+        summary = #{summary},
+        content = #{content},
+        author = #{author},
+        create_time = #{createTime},
+        publish_time = #{publishTime},
+        starred = #{starred},
+        comment = #{comment},
+        read = #{read}
+
+        WHERE id=#{value}
+    </update>
+
+
+
+    <select id="getById" parameterType="int" resultMap="article">
+        SELECT
+        id,
+        title,
+        summary,
+        content,
+        author,
+        create_time,
+        publish_time,
+        starred,
+        comment,
+        read
+        FROM article
+        WHERE id = #{VALUE} limit 1
+    </select>
+
+
+
+</mapper>

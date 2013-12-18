@@ -5,8 +5,7 @@ USE `chong4`;
 ## 文章
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `original_id` int(11) NOT NULL UNIQUE COMMENT '目标站点的文章id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章id',
   `title` varchar (80) NOT NULL DEFAULT '' COMMENT '标题',
   `summary` varchar (500) NOT NULL DEFAULT '' COMMENT '摘要',
   `content` text NULL COMMENT '内容',
@@ -42,8 +41,8 @@ CREATE TABLE `tag` (
 DROP TABLE IF EXISTS `article_tag`;
 CREATE TABLE `article_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `tag_id` int(11) NOT NULL COMMENT '标签id',
-  `original_id` int(11) NOT NULL COMMENT '文章原始id',
+  `tag_id` int(11) NULL COMMENT '标签id',
+  `article_id` int(11) NULL COMMENT '文章id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章标签关系表';
 
@@ -53,17 +52,27 @@ CREATE TABLE `article_tag` (
 DROP TABLE IF EXISTS `ref_article`;
 CREATE TABLE `ref_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `original_id` int(11) NOT NULL COMMENT '文章原始id',
-  `ref_original_id` int(11) NOT NULL COMMENT '相关推荐的文章原始id',
+  `article_id` int(11) NOT NULL COMMENT '文章id',
+  `ref_article_id` int(11) NOT NULL COMMENT '相关推荐的文章id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='相关文章';
+
+
+## 主题文章
+DROP TABLE IF EXISTS `topic_article`;
+CREATE TABLE `topic_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `topic_id` int(11) NULL COMMENT '主题id',
+  `article_id` int(11) NULL COMMENT '文章id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主题文章';
 
 
 ## 文章中的链接
 DROP TABLE IF EXISTS `anchor`;
 CREATE TABLE `anchor` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `original_id` varchar (20) NOT NULL UNIQUE COMMENT '锚点id',
+  `anchor_key` varchar (20) NOT NULL UNIQUE COMMENT '锚点key',
   `item_id` bigint NULL COMMENT '锚点指向的itemId',
   `re_tao_link` varchar (500) NULL COMMENT '指向淘宝热卖的url',
   `direct_tao_link` varchar (500) NULL COMMENT '直接跳转到宝贝详情的Url',

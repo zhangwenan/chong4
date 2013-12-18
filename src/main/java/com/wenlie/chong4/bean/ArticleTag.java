@@ -15,7 +15,7 @@ public class ArticleTag {
     private int tagId;
 
     // 文章原始id
-    private int originalId;
+    private int articleId;
 
     /*`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
             `tag_id` int(11) NOT NULL COMMENT '标签id',

@@ -10,11 +10,8 @@ import java.util.Date;
 @Data
 public class Article {
 
-    // 自定义的文章id
+    // 文章id
     private int id;
-
-    // 原始的文章id
-    private int originalId;
 
     // 标题
     private String title;

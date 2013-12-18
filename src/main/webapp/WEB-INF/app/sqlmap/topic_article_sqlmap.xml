@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TopicArticle">
+
+    <resultMap type="com.wenlie.chong4.bean.TopicArticle" id="topicArticle">
+        <id column="id" property="id"/>
+        <result column="topic_id" property="topicId"/>
+        <result column="article_id" property="articleId"/>
+    </resultMap>
+
+
+    <insert id="add" parameterType="topicArticle">
+        INSERT INTO topic_article (
+        topic_id,
+        article_id
+        )
+        VALUES
+        (
+        #{topicId},
+        #{articleId}
+        )
+    </insert>
+
+
+    <insert id="batchAdd" parameterType="java.util.List">
+        INSERT INTO topic_article (
+        topic_id,
+        article_id
+        )
+
+        VALUES
+
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.topicId},
+            #{item.articleId}
+            )
+        </foreach>
+    </insert>
+
+
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM topic_article WHERE id=#{value}
+    </delete>
+
+
+    <delete id="deleteByTopicId" parameterType="int">
+        DELETE FROM topic_article WHERE topic_id=#{value}
+    </delete>
+
+
+    <delete id="deleteByArticleId" parameterType="int">
+        DELETE FROM topic_article WHERE article_id=#{value}
+    </delete>
+
+
+    <update id="update" parameterType="topicArticle">
+        UPDATE topic_article SET
+
+        topic_id = #{topicId},
+        article_id = #{articleId}
+
+        WHERE id=#{value}
+    </update>
+
+
+
+    <select id="getById" parameterType="int" resultMap="topicArticle">
+        SELECT
+        id,
+        topic_id,
+        article_id
+        FROM topic_article
+        WHERE id = #{VALUE}
+    </select>
+
+
+
+    <select id="getArticleIdsByTopicId" parameterType="int" resultMap="topicArticle">
+        SELECT
+        id,
+        topic_id,
+        article_id
+        FROM topic_article
+        WHERE topic_id = #{VALUE}
+    </select>
+
+</mapper>

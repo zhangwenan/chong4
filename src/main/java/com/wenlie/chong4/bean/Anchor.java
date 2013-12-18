@@ -14,7 +14,7 @@ public class Anchor {
 
 
     // 链接的id
-    private int originalId;
+    private String anchorKey;
 
     // 链接指向的商品itemId
     private long itemId;

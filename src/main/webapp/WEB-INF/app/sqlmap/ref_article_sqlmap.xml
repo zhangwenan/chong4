@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RefArticle">
+
+    <resultMap type="com.wenlie.chong4.bean.RefArticle" id="refArticle">
+        <id column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="ref_article_id" property="refArticleId"/>
+    </resultMap>
+
+
+
+
+    <insert id="add" parameterType="refArticle">
+        INSERT INTO ref_article (
+        id,
+        article_id,
+        ref_article_id
+        )
+        VALUES
+        (
+        #{id},
+        #{articleId},
+        #{refArticleId}
+        )
+    </insert>
+
+
+    <insert id="batchAdd" parameterType="java.util.List">
+        INSERT INTO ref_article (
+        id,
+        article_id,
+        ref_article_id
+        )
+
+        VALUES
+
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.articleId},
+            #{item.refArticleId}
+            )
+        </foreach>
+    </insert>
+
+
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM ref_article WHERE id=#{value}
+    </delete>
+
+
+
+
+    <update id="update" parameterType="refArticle">
+        UPDATE ref_article SET
+
+        id = #{id},
+        article_id = #{articleId},
+        ref_article_id = #{refArticleId}
+
+        WHERE id=#{value}
+    </update>
+
+
+
+    <select id="deleteByArticleId" parameterType="int" resultMap="refArticle">
+        SELECT
+        id,
+        article_id,
+        ref_article_id
+
+        FROM ref_article
+        WHERE id = #{VALUE} limit 1
+    </select>
+
+
+
+    <select id="getRefArticles" parameterType="article" resultMap="article">
+        SELECT id,article_id,ref_article_id FROM ref_article
+        <![CDATA[
+        WHERE article_id = #{articleId}
+        ]]>
+    </select>
+
+
+    <select id="getArticleTagByTag" parameterType="tag" resultMap="article">
+        SELECT
+        id,
+        title,
+        summary,
+        content,
+        author,
+        create_time,
+        publish_time,
+        starred,
+        comment,
+        read
+
+        FROM article_tag WHERE id>#{from} LIMIT #{limit}
+    </select>
+
+</mapper>

@@ -12,10 +12,10 @@ public class RefArticle {
     private int id;
 
     // 文章原始id
-    private int originalId;
+    private int articleId;
 
     // 相关文章的原始id
-    private int refOriginalId;
+    private int refArticleId;
 
 
     /*`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',

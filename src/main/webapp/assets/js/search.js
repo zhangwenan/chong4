@@ -1,0 +1,1 @@
+﻿document.write("<h3>站内搜索</h3><form method=\"post\" action=\"visit.php\"><input name=\"job\" type=\"hidden\" value=\"search\" /><input name=\"keyword\" class=\"search-field\" type=\"text\" /><select name=\"searchmethod\"><option value=\"1\">文章标题</option><option value=\"2\">文章全文</option></select> <input value=\"站内搜索\" class=\"sbutton\" type=\"submit\" /></form>");

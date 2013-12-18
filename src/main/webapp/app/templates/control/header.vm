@@ -1,39 +1,22 @@
-<div class="t1">
-    <div class='mtitle'>
-        <strong>
-            #if($!isIndex == "true")
-                您好，欢迎使用购物查询系统！$!{pageTitle}
-            #else
-                您好，$!{pageTitle}
-            #end
+<div id="header">
+    <div id="innerHeader">
+        <div class="blog-header">
+            <div class="blog-logo"><a href="http://www.chong4.com.cn/"><img src="/assets/images/logo.gif" width="85" height="84" alt="穿衣打扮" title="穿衣打扮" /></a></div>
+            <h2><a href="http://www.chong4.com.cn/">穿衣打扮</a></h2>
+            <div class="blog-desc">提供服饰搭配,美容知识等方面的精彩文章</div>
+        </div>
+        <div id="bbsup"></div>
+        <div id="menu">
+            <ul>
+                <li class="menuleft"><a href="http://www.chong4.com.cn/" title="穿衣打扮首页">首页</a></li>
+                <li><a href="http://www.chong4.com.cn/picwall.php" title="图片墙">图片墙</a></li>
+                <li><a href="http://www.chong4.com.cn/index.php?go=starred" title="查看最受欢迎的文章">精选</a></li>
+                <li><a href="http://www.chong4.com.cn/index.php?mode=2" title="查看全部文章">全部</a></li>
+                <li><a href="http://www.chong4.com.cn/tag.php" title="查看文章分类">分类</a></li>
+                <li><a href="http://www.chong4.com.cn/cydb/link.php?001" target="_blank" title="壹基金壹家人月捐计划" rel="nofollow">壹基金</a></li>
+                <li><a href="http://www.chong4.com.cn/cydb/link.php?004" target="_blank" title="妖娆女人" rel="nofollow">妖娆女人</a></li>
+                <li><a href="http://www.chong4.com.cn/cydb/link.php?005" target="_blank" title="手工皮鞋" rel="nofollow">手工皮鞋</a></li>
+            </ul>
+        </div>
     </div>
-</div>
-<div class="t2">
-    <div class="logo"></div>
-    <div class="title"><H1>#if($!isIndex == "true")$!{siteTitle}#else #end</H1></div>
-    <div class='search'>
-        <iframe name="alimamaifrm" frameborder="0" marginheight="0" marginwidth="0" border="0" scrolling="no" width="365" height="45" src="http://www.taobao.com/go/app/tbk_app/tb_search.php?pid=mm_11468241_1299832_11246180&g_taobao=1&g_style=1&g_lg=0&g_w=365&g_h=45&g_btn=1&g_hot=0&g_hc=0065FF&g_cid=0&g_c=0" ></iframe>
-    </div>
-</div>
-<div class="menu">
-    <a href="/">网站首页</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGGjlY60oHcc7bkKOQiRddrNEyGLx31dnc6%2Fz%2BaQS2UNDUWpebTcEEjBuk1W5odmLS8%3D&pid=mm_11468241_0_0" target="_blank">天猫商城</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGGjlY60oHcc7bkKOQiRddrNHaCLxUqU9WNc%2BS%2F51WZvomqlYyC0kZhUvCGIbywjGh%2F0iA%3D%3D&pid=mm_11468241_0_0" target="_blank">电器城</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGKas1PIKp0U37pZuBotzOg7OjeU9mIWS5%2B5UROBz6sq4fiHePnGhf6UrWuOtfD2G6QGcAHIXpjhEtESpuqsRo0a&pid=mm_11468241_0_0" target="_blank">聚划算</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGKas1PIKp0U37pZuBotzOg7OjY%2F2R0Ke3HHzv2kJZUH%2FehqodvBvxouiCPW7UkqmIn4pk08catp7aU2wpqfONSeQJM%3D&pid=mm_11468241_0_0" target="_blank">淘宝旅行</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGGjlY60oHcc7bkKOQiRddrMMleXlX7W9t4i7I3H2xJSymYSdayPsC1HnLWYuw93%2FoNwNUTSSCXa%2BZkf&pid=mm_11468241_0_0" target="_blank">天猫超市</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGGjlY60oHcc7bkKOQiRddrP0zSSy1paiMpyZR9yIba9DElvyVvyP0nD83GAO0%2BKxQoP2tO%2BLcEG8nY6qAYRnrZ1Pg0oArMVvO51lCK8k%2BnpUlQ5mDyNyx4%3D&pid=mm_11468241_0_0" target="_blank">母婴频道</a>
-    <a rel="nofollow" href="http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB05%2Bm7rfGGjlY60oHcc7bkKOQiRddrMMBoKCgikXgv87lu10eDLLdz7FGhhd6bJkYZ7xRs327aNumiLgg%3D%3D&pid=mm_11468241_0_0" target="_blank">品牌特卖</a>
-    #*{#    <a href="http://www.taobao.com/go/chn/tbk_channel/huangguan.php?pid=mm_29571293_2789094_9971099&amp;eventid=101858" target="_blank">皇冠店铺</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/onsale.php?pid=mm_29571293_2789094_9971099&amp;eventid=101586" target="_blank">淘宝特卖</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/beauty.php?pid=mm_29571293_2789094_9971099&amp;eventid=101328" target="_blank">美容频道</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/man.php?pid=mm_29571293_2789094_9971099&amp;eventid=101330" target="_blank">流行男装</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/lady.php?pid=mm_29571293_2789094_9971099&amp;eventid=101345" target="_blank">品牌女装</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/miaoshakill.php?pid=mm_29571293_2789094_9971099&amp;eventid=101985" target="_blank">秒杀频道</a>#}
-    {#    <a href="http://www.tmall.com/go/chn/tbk_channel/tmall_new.php?pid=mm_29571293_2789094_9971099&amp;eventid=101334" target="_blank">正品商城</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/jewelry.php?pid=mm_29571293_2789094_9971099&amp;eventid=101331" target="_blank">畅销鞋包</a>#}
-    {#    <a href="http://taoke.alimama.com/tms/channel/taobrandchannel.htm?pid=mm_29571293_2789094_9971099&amp;eventid=101605" target="_blank">品牌促销</a>#}
-    {#    <a href="http://www.taobao.com/go/chn/tbk_channel/digital.php?pid=mm_29571293_2789094_9971099&amp;eventid=101332" target="_blank">数码手机</a>#}
-    {#    <a href="http://pindao.huoban.taobao.com/channel/channelfy.htm?pid=mm_29571293_2789094_9971099&amp;eventid=101325" target="_blank">TOP排行榜</a>#}*#
-    <a href="/" class="more">专题</a>
 </div>

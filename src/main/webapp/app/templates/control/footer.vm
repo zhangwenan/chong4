@@ -1,17 +1,50 @@
-<!-- 版权信息 -->
-<div class="dibu">
-    <p>免责声明：
-        #if($!isIndex == "true")
-            本站
-        #else
-            <a href="/${keyword.alias}/">${keyword.name}</a>
-        #end
-        商品及相关信息收集于淘宝网，淘宝商城以及京东商城，拍拍网，易讯网等购物网站，欢迎大家对网站内容侵犯版权等不健康行为进行监督和举报。
-    </p>
+<div id="footersp"></div>
+<div id="footer">
+    <div id="innerFooter">
 
-    <p>Copyright © 2005-2013
-        #if($!isDetail == "true")
-            <a href="/${keyword.alias}/">淘宝网${keyword.name}正品,官网价格</a></p>
-        #end
+        <div id="frlink">
+            <ul>
+                <li class="frtitle">友情链接：</li>
+                <li><a href="http://www.netnoease.com/" target="_blank" title="不新鲜毋宁死,不原创毋宁吃屎">网不易</a></li>
+                <li><a href="http://mail.qq.com/" target="_blank" title="QQ邮箱">QQ邮箱</a></li>
+                <li><a href="http://www.hao123.com/" target="_blank" title="hao123上网导航">hao123</a></li>
+                <li><a href="http://hao.rising.cn/" target="_blank" title="瑞星安全网址">瑞星安全网址</a></li>
+                <li><a href="http://xianguo.com/section/1F72342637DF9B1CEA7B0BDAEB63A62D" target="_blank" title="鲜果">鲜果</a></li>
+                <li><a href="http://www.boomei.com/" target="_blank" title="波美网">波美网</a></li>
+                <li><a href="http://www.ladyband.com/" target="_blank" title="女人帮">女人帮</a></li>
+                <li><a href="http://clothing.haxiu.com/" target="_blank" title="哈秀时尚网">哈秀时尚网</a></li>
+                <li><a href="http://www.she-live.com/" target="_blank" title="她生活女性网">她生活女性网</a></li>
+                <li><a href="http://www.52meirong.com/" target="_blank" title="我爱美容网">我爱美容网</a></li>
+                <li><a href="http://fashion.onlylady.com/" target="_blank" title="女人志服饰">女人志服饰</a></li>
+                <li><a href="http://www.lomowo.com/" target="_blank" title="lomo窝">lomo窝</a></li>
+                <li><a href="http://www.wmpic.me/" target="_blank" title="唯美图片">唯美图片</a></li>
+                <li><a href="http://www.mihuwa.com/" target="_blank" title="迷糊娃">迷糊娃</a></li>
+                <li><a href="http://www.71lady.com/" target="_blank" title="奇丽女性网">奇丽女性网</a></li>
+                <li><a href="http://www.38xf.com/" target="_blank" title="三八女人网">三八女人网</a></li>
+                <li><a href="http://www.bianzhirensheng.com/" target="_blank" title="编织人生">编织人生</a></li>
+                <li><a href="http://www.hers.com.cn/" target="_blank" title="hers女性网">hers女性网</a></li>
+                <li><a href="http://www.izhufu.com/" target="_blank" title="主妇网">主妇网</a></li>
+                <li><a href="http://clothing.lady8844.com/" target="_blank" title="爱美网服饰">爱美网服饰</a></li>
+                <li><a href="http://www.meyol.com/" target="_blank" title="魅网女性">魅网女性</a></li>
+                <li><a href="http://face.39.net/" target="_blank" title="39美容">39美容</a></li>
+            </ul>
+        </div>
+
+        <div id="footericp"><a href="http://www.miibeian.gov.cn" target="_blank">闽ICP备09050381号</a></div>
+
+        <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=4&amp;uid=11838" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+            document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+        </script>
+
+        <div class="footer02"></div>
+
+        <p>&copy;&nbsp;2013&nbsp;www.cydb.com</p>
+
+    </div>
 </div>
-$!tmsUtil.except($!siteStatus)
+
+
+#*
+$!tmsUtil.except($!siteStatus)*#

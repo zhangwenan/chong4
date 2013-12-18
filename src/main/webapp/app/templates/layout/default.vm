@@ -1,23 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>$!{pageTitle}</title>
-    <meta name="description" content="$!{pageDescription}"/>
-    <meta name="baidu-site-verification" content="8gbYhuQmnJ" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/top3.css" />
-    <script type=text/javascript src="/assets/js/t2.js"></script>
-    <base target="_blank"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>穿衣打扮 - 服饰搭配,美容知识</title>
+    <base href="http://127.0.0.1" />
+    <link rel="stylesheet" rev="stylesheet" href="/assets/css/styles.css" type="text/css" media="all" />
 
-    $control.setTemplate("taodianjin.vm")
+    <script type="text/javascript" src="/assets/js/common.js"></script>
+    <script type="text/javascript" src="/assets/js/jslang.js"></script>
+    <script type="text/javascript" src="/assets/js/ajax.js"></script>
+
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.chong4.com.cn/feed.php" />
 </head>
 <body>
-<div class="all">
+<div id="wrapper">
+<div id="innerWrapper">
     $control.setTemplate("header.vm")
 
     $screen_placeholder
 
     $control.setTemplate("footer.vm")
+
 </div>
+
+</div>
+
+    $control.setTemplate("count.vm")
+
 </body>
 </html>

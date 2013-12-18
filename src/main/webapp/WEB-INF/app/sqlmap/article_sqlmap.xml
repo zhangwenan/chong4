@@ -92,7 +92,6 @@
     <update id="update" parameterType="article">
         UPDATE article SET
 
-        id = #{id},
         title = #{title},
         summary = #{summary},
         content = #{content},
@@ -103,7 +102,7 @@
         comment = #{comment},
         read = #{read}
 
-        WHERE id=#{value}
+        WHERE id=#{id}
     </update>
 
 
@@ -121,7 +120,7 @@
         comment,
         read
         FROM article
-        WHERE id = #{VALUE} limit 1
+        WHERE id = #{VALUE}
     </select>
 
 

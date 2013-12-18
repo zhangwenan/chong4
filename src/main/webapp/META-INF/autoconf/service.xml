@@ -46,7 +46,7 @@
 
         <property name="triggers">
             <list>
-                <ref bean="taokeItemTrigger" />
+                <!--<ref bean="taokeItemTrigger" />-->
             </list>
         </property>
         <!-- <property name="autoStartup" value="true"/>  -->

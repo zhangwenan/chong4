@@ -25,8 +25,8 @@ public interface ArticleTagService {
     void deleteByTagId(int tagId);
 
 
-    // 根据 originalId 删除
-    void deleteByOriginalId(int originalId);
+    // 根据 article_id 删除
+    void deleteByArticleId(int articleId);
 
 
     // 根据 id 获取
@@ -36,10 +36,10 @@ public interface ArticleTagService {
     // 根据 tagId 获取
     ArticleTag getByTagId(int tagId);
 
-    // 根据 originalId 获取
-    ArticleTag getByOriginalId(int originalId);
+    // 根据 articleId 获取
+    ArticleTag getByArticleId(int articleId);
 
 
     // 根据标签查询文章
-    List<Article> getOriginalByTag(Tag tag);
+    List<Integer> getArticleIdsByTagId(int tagId);
 }

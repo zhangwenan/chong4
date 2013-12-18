@@ -25,6 +25,4 @@ public interface ArticleService {
     // 根据id查询
     Article getById(int id);
 
-
-
 }

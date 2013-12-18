@@ -28,5 +28,5 @@ public interface RefArticleService {
 
 
     // 根据 文章id，查询相关推荐的文章
-    List<Integer> getRefArticleIds(Article article);
+    List<Integer> getRefArticleIdsByArticleId(int articleId);
 }

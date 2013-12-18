@@ -2,80 +2,52 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Article">
+<mapper namespace="Anchor">
 
-    <resultMap type="com.wenlie.chong4.bean.Article" id="article">
+    <resultMap type="com.wenlie.chong4.bean.Anchor" id="anchor">
         <id column="id" property="id"/>
-        <result column="title" property="title"/>
-        <result column="summary" property="summary"/>
-        <result column="content" property="content"/>
-        <result column="author" property="author"/>
-        <result column="create_time" property="createTime"/>
-        <result column="publish_time" property="publishTime"/>
-        <result column="starred" property="starred"/>
-        <result column="comment" property="comment"/>
-        <result column="read" property="read"/>
+        <result column="anchor_key" property="anchorKey"/>
+        <result column="item_id" property="itemId"/>
+        <result column="re_tao_link" property="reTaoLink"/>
+        <result column="direct_tao_link" property="directTaoLink"/>
     </resultMap>
 
 
 
 
-    <insert id="add" parameterType="article">
-        INSERT INTO article (
-        id,
-        title,
-        summary,
-        content,
-        author,
-        create_time,
-        publish_time,
-        starred,
-        comment,
-        read
+    <insert id="add" parameterType="anchor">
+        INSERT INTO anchor (
+        anchor_key,
+        item_id,
+        re_tao_link,
+        direct_tao_link
         )
         VALUES
         (
-        #{id},
-        #{title},
-        #{summary},
-        #{content},
-        #{author},
-        #{createTime},
-        #{publishTime},
-        #{starred},
-        #{comment}
+        #{anchorKey},
+        #{itemId},
+        #{reTaoLink},
+        #{directTaoLink}
         )
     </insert>
 
 
     <insert id="batchAdd" parameterType="java.util.List">
-        INSERT INTO article (
-        id,
-        title,
-        summary,
-        content,
-        author,
-        create_time,
-        publish_time,
-        starred,
-        comment,
-        read
+        INSERT INTO anchor (
+        anchor_key,
+        item_id,
+        re_tao_link,
+        direct_tao_link
         )
 
         VALUES
 
         <foreach collection="list" item="item" index="index" separator=",">
             (
-            #{item.id},
-            #{item.title},
-            #{item.summary},
-            #{item.content},
-            #{item.author},
-            #{item.createTime},
-            #{item.publishTime},
-            #{item.starred},
-            #{item.comment},
-            #{item.read}
+            #{item.anchorKey},
+            #{item.itemId},
+            #{item.reTaoLink},
+            #{item.directTaoLink}
             )
         </foreach>
     </insert>
@@ -83,45 +55,54 @@
 
 
     <delete id="deleteById" parameterType="int">
-        DELETE FROM article WHERE id=#{value}
+        DELETE FROM anchor WHERE id=#{value}
+    </delete>
+
+    <delete id="deleteByArticleId" parameterType="int">
+        DELETE FROM anchor WHERE article_id=#{value}
+    </delete>
+
+    <delete id="deleteByAnchorKey" parameterType="String">
+        DELETE FROM anchor WHERE anchor_key=#{value}
     </delete>
 
 
+    <update id="update" parameterType="anchor">
+        UPDATE anchor SET
 
-
-    <update id="update" parameterType="article">
-        UPDATE article SET
-
-        id = #{id},
-        title = #{title},
-        summary = #{summary},
-        content = #{content},
-        author = #{author},
-        create_time = #{createTime},
-        publish_time = #{publishTime},
-        starred = #{starred},
-        comment = #{comment},
-        read = #{read}
+        anchor_key = #{anchorKey},
+        item_id = #{itemId},
+        re_tao_link = #{reTaoLink},
+        direct_tao_link = #{directTaoLink}
 
         WHERE id=#{value}
     </update>
 
 
 
-    <select id="getById" parameterType="int" resultMap="article">
+    <select id="getById" parameterType="int" resultMap="anchor">
         SELECT
         id,
-        title,
-        summary,
-        content,
-        author,
-        create_time,
-        publish_time,
-        starred,
-        comment,
-        read
-        FROM article
-        WHERE id = #{VALUE} limit 1
+        anchor_key,
+        item_id,
+        re_tao_link,
+        direct_tao_link
+
+        FROM anchor
+        WHERE id = #{VALUE}
+    </select>
+
+
+    <select id="getByAnchorKey" parameterType="String" resultMap="anchor">
+        SELECT
+        id,
+        anchor_key,
+        item_id,
+        re_tao_link,
+        direct_tao_link
+
+        FROM anchor
+        WHERE anchor_key = #{VALUE}
     </select>
 
 

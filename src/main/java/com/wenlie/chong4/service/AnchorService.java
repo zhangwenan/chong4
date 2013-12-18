@@ -19,7 +19,10 @@ public interface AnchorService {
     void deleteById(int id);
 
     // 根据原始的链接删除
-    void deleteByOriginalId(String originalId);
+    void deleteByArticleId(int articleId);
+
+    // 根据链接的key 来删除
+    void deleteByAnchorKey(String anchorKey);
 
     // 更新
     void update(Anchor anchor);
@@ -27,8 +30,9 @@ public interface AnchorService {
     // 根据id 获取
     Anchor getById(int id);
 
-    // 根据原始id获取
-    Anchor getByOriginalId(String orignalId);
+    // 根据链接的key获取
+    Anchor getByAnchorKey(String anchorKey);
+
 
 
 }

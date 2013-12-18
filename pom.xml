@@ -243,8 +243,8 @@
 					<!-- 要进行AutoConfig的目标文件，默认为${project.artifact.file}。 <dest>${project.artifact.file}</dest> -->
 					<!-- 配置后，是否展开目标文件，默认为false，不展开。 -->
 					<exploding>true</exploding>
-                    <!--<userProperties>chong4_local.properties</userProperties>-->
-                    <userProperties>chong4_online.properties</userProperties>
+                    <userProperties>chong4_local.properties</userProperties>
+                    <!--<userProperties>chong4_online.properties</userProperties>-->
 					<!-- 展开到指定目录，默认为${project.build.directory}/${project.build.finalName}。 -->
 					<explodedDirectory>
 						${warExplodedDirectory}

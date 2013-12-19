@@ -21,26 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class Detail {
 
-    @Autowired
-    private KeywordService keywordService;
 
-    @Autowired
-    private KeywordItemIdService keywordItemIdService;
-
-    @Autowired
-    private IndexUpdateService indexUpdateService;
-
-    @Autowired
-    private ConfigService configService;
-
-    @Autowired
-    private AlimamaItemService alimamaItemService;
 
     @Autowired
     HttpServletRequest request;
 
     public void execute(Context context,@Param("alias") String alias) throws Exception{
-        context.put("isDetail", "true");
+        /*context.put("isDetail", "true");
 
         if(!SettingContext.containsKey("siteTitle")){
             SettingContext.put("siteTitle", configService.getByConfigName("siteTitle"));
@@ -75,7 +62,7 @@ public class Detail {
             AlimamaItem alimamaItem = alimamaItemService.getByItemId(itemId);
             alimamaItems.add(alimamaItem);
         }
-        context.put("alimamaItems", alimamaItems);
+        context.put("alimamaItems", alimamaItems);*/
 
     }
 }

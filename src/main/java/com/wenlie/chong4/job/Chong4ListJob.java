@@ -2,10 +2,9 @@ package com.wenlie.chong4.job;
 
 import cn.weili.util.DateUtil;
 import com.wenlie.chong4.bean.AlimamaItem;
+import com.wenlie.chong4.bean.Article;
 import com.wenlie.chong4.bean.Keyword;
-import com.wenlie.chong4.service.AlimamaItemService;
-import com.wenlie.chong4.service.KeywordItemIdService;
-import com.wenlie.chong4.service.KeywordService;
+import com.wenlie.chong4.service.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -41,14 +40,27 @@ import java.util.regex.Pattern;
  */
 public class Chong4ListJob {
 
-    @Autowired
-    KeywordService keywordService;
 
     @Autowired
-    KeywordItemIdService keywordItemIdService;
+    ArticleService articleService;
 
     @Autowired
-    AlimamaItemService alimamaItemService;
+    TopicService topicService;
+
+    @Autowired
+    TopicArticleService topicArticleService;
+
+    @Autowired
+    TagService tagService;
+
+    @Autowired
+    RefArticleService refArticleService;
+
+    @Autowired
+    ArticleTagService articleTagService;
+
+    @Autowired
+    AnchorService anchorService;
 
 
     private Logger logger = LoggerFactory.getLogger(Chong4ListJob.class); // 日志
@@ -59,62 +71,60 @@ public class Chong4ListJob {
     private CloseableHttpClient httpClient;
 
     /**
-     * 初始化，阿里妈妈登录状态
+     * 初始化，
+     * 设置 cookie 容器，
+     * 设置 httpClient
      */
     public void init(){
         if(initialized) return;
         setCookieStore(new BasicCookieStore());
         setHttpClient(HttpClients.custom().setDefaultCookieStore(cookieStore).build());
-
-        HttpGet httpGet = new HttpGet("http://www.alimama.com/index.htm");
-        try {
-            httpClient.execute(httpGet);
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-
-        List<Cookie> cookieList = cookieStore.getCookies();
-        String _tb_token = "";
-        for(int i=0; i<cookieList.size(); i++){
-            if(cookieList.get(i).getName().equals("_tb_token_")){
-                _tb_token = cookieList.get(i).getValue();
-            }
-        }
-
-
-        HttpPost httpPost = new HttpPost("https://www.alimama.com/member/minilogin_act.htm");
-        List <NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("_tb_token_", _tb_token));
-        nvps.add(new BasicNameValuePair("style", ""));
-        nvps.add(new BasicNameValuePair("redirect", ""));
-        nvps.add(new BasicNameValuePair("proxy", "http://www.alimama.com/proxy.htm"));
-        nvps.add(new BasicNameValuePair("logname", "ligongzhangwenan@sina.com"));
-        nvps.add(new BasicNameValuePair("originalLogpasswd", "i79o4324"));
-        nvps.add(new BasicNameValuePair("logpasswd", "a887af4040374792e1f8f6d395b0f638"));
-
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-            httpPost.setHeader("Referer", "http://www.alimama.com/member/minilogin.htm?&proxy=http://www.alimama.com/proxy.htm");
-            httpPost.setHeader("Host", "www.alimama.com");
-
-            // 登录
-            httpClient.execute(httpPost);
-
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
         initialized = Boolean.TRUE;
     }
 
-    public void execute(){
-        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，开始任务：");
-        // 获取40个关键词
+    public void execute() throws IOException{
+        init();
+
+
+
+        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，开始监控文章列表");
+
+
+        HttpGet httpGet = new HttpGet("http://www.chong4.com.cn/index.php?mode=1&page=1");
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+
+        HttpEntity entity = response.getEntity();
+
+
+        if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK){
+
+            logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，监控文章列表时，发生异常！" +
+                    "\r\n返回状态码" + response.getStatusLine().getStatusCode() +
+                    "\r\n返回Html：" + EntityUtils.toString(entity));
+
+            return;
+        }
+
+        String responseHtml = EntityUtils.toString(entity);
+
+        List<Article> articleList = getArticleList(responseHtml);
+        articleService.batchAdd(articleList);
+
+        System.out.println("ok");
+
+
+
+
+
+
+
+
+        /*// 获取40个关键词
         List<Keyword> keywords = keywordService.getKeywordsHasNoItems(50);
         if(keywords == null || keywords.size() < 1) return;
-        /*logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，取出（" + keywords.size() + "）个关键词...");*/
+        *//*logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，取出（" + keywords.size() + "）个关键词...");*//*
 
-        /*logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，开始从阿里妈妈获取商品...");*/
+        *//*logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，开始从阿里妈妈获取商品...");*//*
 
         // 根据关键词，获取商品id
         for (int i=0; i<keywords.size(); i++){
@@ -128,8 +138,8 @@ public class Chong4ListJob {
             if(items != null && items.size()>0){
                 keywordItemIdService.batchAdd(tempKeyword.getName(), items);
                 alimamaItemService.batchAdd(items);
-                /*logger.warn(DateUtil.formatDate(new Date(), timeStr) + "," +
-                        tempKeyword.getName() + ":" + items.toString());*/
+                *//*logger.warn(DateUtil.formatDate(new Date(), timeStr) + "," +
+                        tempKeyword.getName() + ":" + items.toString());*//*
             }
             else{
                 logger.warn(DateUtil.formatDate(new Date(), timeStr) + "," +
@@ -139,7 +149,7 @@ public class Chong4ListJob {
             keywordService.update(tempKeyword);
 
         }
-        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "结束");
+        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "结束");*/
     }
 
 
@@ -207,6 +217,62 @@ public class Chong4ListJob {
         return null;
     }
 
+
+
+    public List<Article> getArticleList(String html){
+
+        /**
+         * 正则匹配注意：
+         * 转义：  \\.  \\[   \\?  \\|
+         */
+
+        String regStr = "<div class=\"textbox\">" +
+                "\\s*<div class=\"textbox-title\">" +
+                "\\s*<span id=\"starid(?<articleId>\\d+)\"><img src=\"images/others/unstarred\\.gif\" /></span>" +
+                "<h2><a href=\"/read\\.php\\?\\d+\" target=\"_blank\">(?<title>.+)</a></h2>" +
+                "\\s*<div class=\"textbox-label\">\\[ (?<publishTime>\\d+/\\d+/\\d+ \\d+:\\d+) \\| by (?<author>.+) ]</div>" +
+                "\\s*</div>" +
+                "\\s*<div class=\"textbox-content\">" +
+                "\\s*(?<summary>.+)" +
+                "<div class=\"readmore\">" +
+                "<img src=\"/image/readmore\\.gif\" /><a href=\"/read\\.php\\?\\d+\" title=\"点击阅读全文\" target=\"_blank\">阅读全文</a>" +
+                "</div>" +
+                "\\s*</div>" +
+                "\\s*<div class=\"textbox-bottom\">" +
+                "\\s*分类：<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">(?<tagName>.+)</a>" +
+                " \\| 评论\\((?<comment>\\d+)\\) \\| 阅读\\((?<read>\\d+)\\)" +
+                "\\s*</div>" +
+                "\\s*</div>";
+
+
+        Pattern pattern = Pattern.compile(regStr);
+        Matcher matcher = pattern.matcher(html);
+        /*int count = 0;*/
+
+        List<Article> articleList = new ArrayList<Article>();
+        while (matcher.find()){
+            int articleId = Integer.parseInt(matcher.group("articleId"));
+            String title = matcher.group("title");
+            Date publishTime = DateUtil.parseDate(matcher.group("publishTime"), "yyyy/MM/dd HH:mm");
+            String author = matcher.group("author");
+            String summary = matcher.group("summary");
+            int comment = Integer.parseInt(matcher.group("comment"));
+            int read = Integer.parseInt(matcher.group("read"));
+
+            Article article = new Article();
+            article.setId(articleId);
+            article.setTitle(title);
+            article.setPublishTime(publishTime);
+            article.setAuthor(author);
+            article.setSummary(summary);
+            article.setCommentCount(comment);
+            article.setReadCount(read);
+
+            articleList.add(article);
+        }
+
+        return articleList.size()>0?articleList:null;
+    }
 
 
     private Boolean needLogin(String html){

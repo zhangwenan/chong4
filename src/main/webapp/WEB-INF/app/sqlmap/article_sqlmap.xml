@@ -13,8 +13,8 @@
         <result column="create_time" property="createTime"/>
         <result column="publish_time" property="publishTime"/>
         <result column="starred" property="starred"/>
-        <result column="comment" property="comment"/>
-        <result column="read" property="read"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="read_count" property="readCount"/>
     </resultMap>
 
 
@@ -30,8 +30,8 @@
         create_time,
         publish_time,
         starred,
-        comment,
-        read
+        comment_count,
+        read_count
         )
         VALUES
         (
@@ -58,8 +58,8 @@
         create_time,
         publish_time,
         starred,
-        comment,
-        read
+        comment_count,
+        read_count
         )
 
         VALUES
@@ -74,8 +74,8 @@
             #{item.createTime},
             #{item.publishTime},
             #{item.starred},
-            #{item.comment},
-            #{item.read}
+            #{item.commentCount},
+            #{item.readCount}
             )
         </foreach>
     </insert>
@@ -99,8 +99,8 @@
         create_time = #{createTime},
         publish_time = #{publishTime},
         starred = #{starred},
-        comment = #{comment},
-        read = #{read}
+        comment_count = #{commentCount},
+        read_count = #{readCount}
 
         WHERE id=#{id}
     </update>
@@ -117,8 +117,8 @@
         create_time,
         publish_time,
         starred,
-        comment,
-        read
+        comment_count,
+        read_count
         FROM article
         WHERE id = #{VALUE}
     </select>

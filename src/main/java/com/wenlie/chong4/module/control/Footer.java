@@ -15,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class Footer {
 
 
-    @Autowired
-    private ConfigService configService;
 
     public void execute(Context context){
-        if(!context.containsKey("siteStatus")){
+        /*if(!context.containsKey("siteStatus")){
             context.put("siteStatus", configService.getByConfigName("siteStatus"));
-        }
+        }*/
     }
 }

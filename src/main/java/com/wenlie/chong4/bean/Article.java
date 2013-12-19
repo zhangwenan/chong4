@@ -10,6 +10,12 @@ import java.util.Date;
 @Data
 public class Article {
 
+    public Article(){
+        if(this.starred == null){
+            this.starred = StarredStatus.no;
+        }
+    }
+
     // 文章id
     private int id;
 
@@ -36,10 +42,10 @@ public class Article {
     private StarredStatus starred;
 
     // 评论数
-    private int comment;
+    private int commentCount;
 
     // 阅读数
-    private int read;
+    private int readCount;
 
 /*
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',

@@ -31,7 +31,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void batchAdd(List<Article> articles) {
-        sqlSession.insert("Article.batchAdd", articles);
+        for (int i=0; i<articles.size(); i++){
+            add(articles.get(i));
+        }
+        /*sqlSession.insert("Article.batchAdd", articles);*/
     }
 
     @Override

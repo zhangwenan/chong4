@@ -12,6 +12,9 @@ import java.util.List;
 public interface TopicArticleService {
 
 
+    // 是否存在
+    Boolean exist(TopicArticle topicArticle);
+
     // 添加
     void add(TopicArticle topicArticle);
 

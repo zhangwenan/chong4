@@ -43,7 +43,8 @@
         #{createTime},
         #{publishTime},
         #{starred},
-        #{comment}
+        #{commentCount},
+        #{readCount}
         )
     </insert>
 

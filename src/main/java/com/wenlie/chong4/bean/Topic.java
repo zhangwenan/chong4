@@ -8,6 +8,13 @@ import lombok.Data;
 @Data
 public class Topic {
 
+    public Topic() {
+    }
+
+    public Topic(String name) {
+        this.name = name;
+    }
+
     // 主题id
     private int id;
 

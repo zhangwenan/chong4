@@ -88,4 +88,14 @@
         WHERE topic_id = #{VALUE}
     </select>
 
+
+    <select id="getByTopicIdAndArticleId" parameterType="int" resultMap="topicArticle">
+        SELECT
+        id,
+        topic_id,
+        article_id
+        FROM topic_article
+        WHERE id = #{VALUE}
+    </select>
+
 </mapper>

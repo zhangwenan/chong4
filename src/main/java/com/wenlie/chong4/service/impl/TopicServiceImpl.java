@@ -19,13 +19,26 @@ public class TopicServiceImpl implements TopicService {
 
 
     @Override
+    public Boolean existed(String topicName) {
+        if(getByName(topicName) != null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
+    }
+
+    @Override
     public void add(Topic topic) {
         sqlSession.insert("Topic.add", topic);
     }
 
     @Override
     public void batchAdd(List<Topic> topics) {
-        sqlSession.insert("Topic.batchAdd", topics);
+        for (int i=0; i<topics.size(); i++){
+            add(topics.get(i));
+        }
+        /*sqlSession.insert("Topic.batchAdd", topics);*/
     }
 
     @Override

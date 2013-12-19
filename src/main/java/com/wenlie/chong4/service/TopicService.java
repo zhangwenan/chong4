@@ -10,6 +10,9 @@ import java.util.List;
  */
 public interface TopicService {
 
+    // 主题是否已经存在
+    Boolean existed(String topicName);
+
 
     // 添加主题
     void add(Topic topic);

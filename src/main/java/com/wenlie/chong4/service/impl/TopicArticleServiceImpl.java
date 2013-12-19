@@ -17,13 +17,21 @@ public class TopicArticleServiceImpl implements TopicArticleService {
     private SqlSession sqlSession;
 
     @Override
+    public Boolean exist(TopicArticle topicArticle) {
+        return null;
+    }
+
+    @Override
     public void add(TopicArticle topicArticle) {
         sqlSession.insert("TopicArticle.add", topicArticle);
     }
 
     @Override
     public void batchAdd(List<TopicArticle> topicArticles) {
-        sqlSession.insert("TopicArticle.batchAdd", topicArticles);
+        for (int i=0; i<topicArticles.size(); i++){
+            add(topicArticles.get(i));
+        }
+        /*sqlSession.insert("TopicArticle.batchAdd", topicArticles);*/
     }
 
     @Override

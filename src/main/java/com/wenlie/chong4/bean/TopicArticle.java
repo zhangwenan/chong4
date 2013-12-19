@@ -8,13 +8,21 @@ import lombok.Data;
 @Data
 public class TopicArticle {
 
+    public TopicArticle() {
+    }
+
+    public TopicArticle(int topic_id, int article_id) {
+        this.topicId = topic_id;
+        this.articleId = article_id;
+    }
+
     private int id;
 
     // 主题id
-    private int topic_id;
+    private int topicId;
 
     // 文章id
-    private int article_id;
+    private int articleId;
 
 
 

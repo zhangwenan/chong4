@@ -1,10 +1,7 @@
 package com.wenlie.chong4.job;
 
 import cn.weili.util.DateUtil;
-import com.wenlie.chong4.bean.AlimamaItem;
-import com.wenlie.chong4.bean.Article;
-import com.wenlie.chong4.bean.Topic;
-import com.wenlie.chong4.bean.TopicArticle;
+import com.wenlie.chong4.bean.*;
 import com.wenlie.chong4.service.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -88,7 +85,7 @@ public class Chong4ListJob {
 
 
 
-        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，开始监控文章列表第" + page + "页");
+
 
 
         HttpGet httpGet = new HttpGet("http://www.chong4.com.cn/index.php?mode=1&page=" + page);
@@ -114,7 +111,10 @@ public class Chong4ListJob {
 
         String topicHtml = getTopicHtml(responseHtml);
         dealTopicHtml(topicHtml);
-        System.out.println("done");
+
+        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，文章列表第" + page + "页采集完毕!");
+
+        execute();
 
 
 
@@ -162,7 +162,7 @@ public class Chong4ListJob {
 
         String regStr = "<div class=\"textbox\">" +
                 "\\s*<div class=\"textbox-title\">" +
-                "\\s*<span id=\"starid(?<articleId>\\d+)\"><img src=\"images/others/unstarred\\.gif\" /></span>" +
+                "\\s*<span id=\"starid(?<articleId>\\d+)\"><img src=\"images/others/(?<starred>(un)?starred)\\.gif\" /></span>" +
                 "<h2><a href=\"/read\\.php\\?\\d+\" target=\"_blank\">(?<title>.+)</a></h2>" +
                 "\\s*<div class=\"textbox-label\">\\[ (?<publishTime>\\d+/\\d+/\\d+ \\d+:\\d+) \\| by (?<author>.+) ]</div>" +
                 "\\s*</div>" +
@@ -186,6 +186,7 @@ public class Chong4ListJob {
         List<Article> articleList = new ArrayList<Article>();
         while (matcher.find()){
             int articleId = Integer.parseInt(matcher.group("articleId"));
+            String starred = matcher.group("starred");
             String title = matcher.group("title");
             Date publishTime = DateUtil.parseDate(matcher.group("publishTime"), "yyyy/MM/dd HH:mm");
             String author = matcher.group("author");
@@ -201,6 +202,13 @@ public class Chong4ListJob {
             article.setSummary(summary);
             article.setCommentCount(commentCount);
             article.setReadCount(readCount);
+            if(starred == "unstarred"){
+                article.setStarred(StarredStatus.no);
+            }
+            else if(starred == "starred"){
+                article.setStarred(StarredStatus.yes);
+            }
+
 
             articleList.add(article);
         }

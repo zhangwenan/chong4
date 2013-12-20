@@ -5,6 +5,7 @@ import com.alibaba.citrus.turbine.Context;
 import com.wenlie.chong4.bean.IndexUpdate;
 import com.wenlie.chong4.bean.Keyword;
 import com.wenlie.chong4.bean.SettingContext;
+import com.wenlie.chong4.job.Chong4ListJob;
 import com.wenlie.chong4.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,11 +23,14 @@ import java.util.List;
 public class Index {
 
 
+    @Autowired
+    private Chong4ListJob chong4ListJob;
+
 
     @Autowired
     HttpServletRequest request;
 
     public void execute(Context context) throws Exception{
-
+        chong4ListJob.execute();
     }
 }

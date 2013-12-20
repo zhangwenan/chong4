@@ -30,7 +30,10 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void add(Topic topic) {
-        sqlSession.insert("Topic.add", topic);
+
+        if(!existed(topic.getName())){
+            sqlSession.insert("Topic.add", topic);
+        }
     }
 
     @Override

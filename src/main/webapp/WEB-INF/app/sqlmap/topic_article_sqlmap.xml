@@ -89,13 +89,13 @@
     </select>
 
 
-    <select id="getByTopicIdAndArticleId" parameterType="int" resultMap="topicArticle">
+    <select id="getByTopicIdAndArticleId" parameterType="topicArticle" resultMap="topicArticle">
         SELECT
         id,
         topic_id,
         article_id
         FROM topic_article
-        WHERE id = #{VALUE}
+        WHERE topic_id = #{topicId} AND article_id = #{articleId}
     </select>
 
 </mapper>

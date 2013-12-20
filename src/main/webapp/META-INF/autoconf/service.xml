@@ -14,13 +14,14 @@
     <bean id="topicService" class="com.wenlie.chong4.service.impl.TopicServiceImpl"></bean>
     <bean id="topicArticleService" class="com.wenlie.chong4.service.impl.TopicArticleServiceImpl"></bean>
     <bean id="tagService" class="com.wenlie.chong4.service.impl.TagServiceImpl"></bean>
+    <bean id="imageService" class="com.wenlie.chong4.service.impl.ImageServiceImpl"></bean>
     <bean id="refArticleService" class="com.wenlie.chong4.service.impl.RefArticleServiceImpl"></bean>
     <bean id="articleTagService" class="com.wenlie.chong4.service.impl.ArticleTagServiceImpl"></bean>
     <bean id="articleService" class="com.wenlie.chong4.service.impl.ArticleServiceImpl"></bean>
     <bean id="anchorService" class="com.wenlie.chong4.service.impl.AnchorServiceImpl"></bean>
 
 
-    <bean name="settingContext" class="com.wenlie.chong4.bean.SettingContext"></bean>
+    <bean id="settingContext" class="com.wenlie.chong4.bean.SettingContext"></bean>
 
     <!--<bean name="taokeItemJob" class="com.wenlie.chong4.job.TaokeItemJob"></bean>
 
@@ -69,7 +70,7 @@
 
         <property name="triggers">
             <list>
-                <ref bean="chong4ListJobTrigger" />
+                <!--<ref bean="chong4ListJobTrigger" />-->
             </list>
         </property>
         <!-- <property name="autoStartup" value="true"/>  -->

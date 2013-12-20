@@ -18,6 +18,8 @@ CREATE TABLE `article` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章表';
 
+ALTER TABLE article MODIFY COLUMN summary text;
+
 
 ## 主题
 DROP TABLE IF EXISTS `topic`;
@@ -78,6 +80,18 @@ CREATE TABLE `anchor` (
   `direct_tao_link` varchar (500) NULL COMMENT '直接跳转到宝贝详情的Url',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章中的锚点表';
+
+
+## 图片表
+DROP TABLE IF EXISTS `image`;
+CREATE TABLE `image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `url` varchar(500) NULL COMMENT '图片URL',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图片URL表';
+
+
+
 
 
 
@@ -162,7 +176,7 @@ CREATE TABLE `baidu_account` (
 
 
 
-
+ALTER TABLE chatter_users MODIFY COLUMN ip VARCHAR(50);
 
 ALTER TABLE site_config ADD site_desc varchar(300) NOT NULL DEFAULT '' COMMENT'???????';
 

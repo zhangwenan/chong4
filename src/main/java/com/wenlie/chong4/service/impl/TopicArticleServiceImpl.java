@@ -18,12 +18,22 @@ public class TopicArticleServiceImpl implements TopicArticleService {
 
     @Override
     public Boolean exist(TopicArticle topicArticle) {
-        return null;
+        TopicArticle topicArticle1 = sqlSession.selectOne("TopicArticle.getByTopicIdAndArticleId", topicArticle);
+
+        if(topicArticle1 != null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
     }
 
     @Override
     public void add(TopicArticle topicArticle) {
-        sqlSession.insert("TopicArticle.add", topicArticle);
+
+        if(!exist(topicArticle)){
+            sqlSession.insert("TopicArticle.add", topicArticle);
+        }
     }
 
     @Override

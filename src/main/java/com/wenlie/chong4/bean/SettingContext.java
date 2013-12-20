@@ -1,6 +1,7 @@
 package com.wenlie.chong4.bean;
 
 
+import com.wenlie.chong4.job.Chong4ListJob;
 import com.wenlie.chong4.job.TaokeItemJob;
 import com.wenlie.chong4.service.KeywordItemIdService;
 import com.wenlie.chong4.service.KeywordService;
@@ -20,6 +21,8 @@ import org.apache.http.util.EntityUtils;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -42,13 +45,14 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * Time: 下午7:18
  * To change this template use File | Settings | File Templates.
  */
-public class SettingContext {
+public class SettingContext implements InitializingBean {
 
     protected static Logger logger = LoggerFactory.getLogger(SettingContext.class); // 日志
 
+    @Autowired
+    private Chong4ListJob chong4ListJob;
 
     public SettingContext() {
-
     }
 
     public static Map<String, Object> settingMap = new ConcurrentHashMap<String, Object>();
@@ -64,5 +68,10 @@ public class SettingContext {
 
     public static Object get(String key){
         return settingMap.get(key);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
     }
 }

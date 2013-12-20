@@ -24,6 +24,7 @@
         <typeAlias type="com.wenlie.chong4.bean.Article" alias="article" />
         <typeAlias type="com.wenlie.chong4.bean.Anchor" alias="anchor" />
         <typeAlias type="com.wenlie.chong4.bean.Tag" alias="tag" />
+        <typeAlias type="com.wenlie.chong4.bean.Image" alias="image" />
         <typeAlias type="com.wenlie.chong4.bean.Topic" alias="topic" />
         <typeAlias type="com.wenlie.chong4.bean.ArticleTag" alias="articleTag" />
         <typeAlias type="com.wenlie.chong4.bean.RefArticle" alias="refArticle" />

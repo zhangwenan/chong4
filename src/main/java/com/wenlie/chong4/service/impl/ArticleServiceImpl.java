@@ -25,8 +25,20 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
+    public Boolean existed(int articleId) {
+        if(getById(articleId) != null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
+    }
+
+    @Override
     public void add(Article article) {
-        sqlSession.insert("Article.add", article);
+        if(!existed(article.getId())){
+            sqlSession.insert("Article.add", article);
+        }
     }
 
     @Override

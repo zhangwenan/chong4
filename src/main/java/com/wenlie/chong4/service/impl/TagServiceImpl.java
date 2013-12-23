@@ -17,8 +17,20 @@ public class TagServiceImpl implements TagService {
     private SqlSession sqlSession;
 
     @Override
+    public Boolean existed(String tagName) {
+        if(getByName(tagName) != null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
+    }
+
+    @Override
     public void add(Tag tag) {
-        sqlSession.insert("Tag.add", tag);
+        if(!existed(tag.getName())){
+            sqlSession.insert("Tag.add", tag);
+        }
     }
 
     @Override

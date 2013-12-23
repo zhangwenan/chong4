@@ -11,6 +11,9 @@ import java.util.List;
 public interface TagService {
 
 
+    // 是否存在
+    Boolean existed(String tagName);
+
     // 添加标签
     void add(Tag tag);
 

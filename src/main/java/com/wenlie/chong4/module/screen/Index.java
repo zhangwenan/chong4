@@ -27,10 +27,15 @@ public class Index {
     private Chong4ListJob chong4ListJob;
 
 
+
     @Autowired
     HttpServletRequest request;
 
     public void execute(Context context) throws Exception{
-        chong4ListJob.execute();
+        if(!SettingContext.containsKey("isCollecting") || !(Boolean)SettingContext.get("isCollecting")){
+            SettingContext.put("isCollecting", Boolean.TRUE);
+            chong4ListJob.execute();
+        }
+
     }
 }

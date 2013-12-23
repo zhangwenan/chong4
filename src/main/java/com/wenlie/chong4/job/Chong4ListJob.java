@@ -64,6 +64,8 @@ public class Chong4ListJob {
     private CloseableHttpClient httpClient;
     private int page = 1;
 
+    private int pageIndex = 0;
+
     /**
      * 初始化，
      * 设置 cookie 容器，
@@ -76,10 +78,22 @@ public class Chong4ListJob {
         initialized = Boolean.TRUE;
     }
 
-    public void execute() throws IOException{
+    public void execute(){
         init();
+        List<Integer> intArr = new ArrayList<Integer>();
+        intArr.add(868);
+        intArr.add(852);
+        intArr.add(848);
+        intArr.add(847);
+        intArr.add(821);
+        intArr.add(815);
+        intArr.add(757);
+        intArr.add(0);
+
+        page = intArr.get(pageIndex);
         if(page == 0){
             logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，文章列表已经采集完毕");
+            SettingContext.put("isCollecting", Boolean.FALSE);
             return;
         }
 
@@ -89,31 +103,52 @@ public class Chong4ListJob {
 
 
         HttpGet httpGet = new HttpGet("http://www.chong4.com.cn/index.php?mode=1&page=" + page);
-        CloseableHttpResponse response = httpClient.execute(httpGet);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpClient.execute(httpGet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         HttpEntity entity = response.getEntity();
 
 
         if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK){
 
-            logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，监控文章列表时，发生异常！" +
-                    "\r\n返回状态码" + response.getStatusLine().getStatusCode() +
-                    "\r\n返回Html：" + EntityUtils.toString(entity));
+            try {
+                logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，监控文章列表时，发生异常！" +
+                        "\r\n返回状态码" + response.getStatusLine().getStatusCode() +
+                        "\r\n返回Html：" + EntityUtils.toString(entity));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             return;
         }
 
-        String responseHtml = EntityUtils.toString(entity);
+        String responseHtml = null;
+        try {
+            responseHtml = EntityUtils.toString(entity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        page = getNextPage(responseHtml);
+
         List<Article> articleList = getArticleList(responseHtml);
+        if(articleList.size() < 12){
+            logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，采集文章列表第" + page + "页时，数量少于12个!" +
+                    "\r\nHtml为：" + responseHtml
+            );
+
+        }
         articleService.batchAdd(articleList);
 
         String topicHtml = getTopicHtml(responseHtml);
         dealTopicHtml(topicHtml);
 
         logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，文章列表第" + page + "页采集完毕!");
-
+        page = getNextPage(responseHtml);
+        pageIndex++;
         execute();
 
 
@@ -163,17 +198,18 @@ public class Chong4ListJob {
         String regStr = "<div class=\"textbox\">" +
                 "\\s*<div class=\"textbox-title\">" +
                 "\\s*<span id=\"starid(?<articleId>\\d+)\"><img src=\"images/others/(?<starred>(un)?starred)\\.gif\" /></span>" +
-                "<h2><a href=\"/read\\.php\\?\\d+\" target=\"_blank\">(?<title>.+)</a></h2>" +
-                "\\s*<div class=\"textbox-label\">\\[ (?<publishTime>\\d+/\\d+/\\d+ \\d+:\\d+) \\| by (?<author>.+) ]</div>" +
+                "<h2><a href=\"/read\\.php\\?\\d+\" target=\"_blank\">(?<title>[\\s\\S]+?)</a></h2>" +
+                "\\s*<div class=\"textbox-label\">\\[ (?<publishTime>\\d+/\\d+/\\d+ \\d+:\\d+) \\| by (?<author>[\\s\\S]+?) ]</div>" +
                 "\\s*</div>" +
                 "\\s*<div class=\"textbox-content\">" +
-                "\\s*(?<summary>.+)" +
+                "\\s*(?<summary>[\\s\\S]+?)" +
                 "<div class=\"readmore\">" +
                 "<img src=\"/image/readmore\\.gif\" /><a href=\"/read\\.php\\?\\d+\" title=\"点击阅读全文\" target=\"_blank\">阅读全文</a>" +
                 "</div>" +
                 "\\s*</div>" +
                 "\\s*<div class=\"textbox-bottom\">" +
-                "\\s*分类：<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">(?<tagName>.+)</a>" +
+                "\\s*分类：<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">[\\s\\S]+?</a>" +
+                "(，<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">[\\s\\S]+?</a>)*" +
                 " \\| 评论\\((?<commentCount>\\d+)\\) \\| 阅读\\((?<readCount>\\d+)\\)" +
                 "\\s*</div>" +
                 "\\s*</div>";

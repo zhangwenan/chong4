@@ -10,7 +10,7 @@
     </resultMap>
 
 
-    <insert id="add" parameterType="tag">
+    <insert id="add" parameterType="image">
         INSERT INTO image (url) VALUES (#{url})
     </insert>
 
@@ -32,26 +32,26 @@
     </delete>
 
 
-    <delete id="deleteByName" parameterType="String">
-        DELETE FROM tag WHERE name=#{value}
+    <delete id="deleteByUrl" parameterType="String">
+        DELETE FROM image WHERE url=#{value}
     </delete>
 
 
-    <update id="update" parameterType="tag">
-        UPDATE tag SET name=#{name}
+    <update id="update" parameterType="image">
+        UPDATE image SET url=#{url}
         WHERE id=#{id}
     </update>
 
 
-    <select id="getById" parameterType="int" resultMap="tag">
-        SELECT id,name FROM tag
+    <select id="getById" parameterType="int" resultMap="image">
+        SELECT id,url FROM image
         WHERE id = #{VALUE} limit 1
     </select>
 
 
-    <select id="getByName" parameterType="String" resultMap="tag">
-        SELECT id,name FROM tag
-        WHERE name = #{VALUE} limit 1
+    <select id="getByUrl" parameterType="String" resultMap="image">
+        SELECT id,url FROM image
+        WHERE url = #{VALUE} limit 1
     </select>
 
 </mapper>

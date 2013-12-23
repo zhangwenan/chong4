@@ -49,12 +49,6 @@ public class SettingContext implements InitializingBean {
 
     protected static Logger logger = LoggerFactory.getLogger(SettingContext.class); // 日志
 
-    @Autowired
-    private Chong4ListJob chong4ListJob;
-
-    public SettingContext() {
-    }
-
     public static Map<String, Object> settingMap = new ConcurrentHashMap<String, Object>();
 
 

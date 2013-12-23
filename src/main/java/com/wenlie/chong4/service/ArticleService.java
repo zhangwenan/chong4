@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface ArticleService {
 
+    // 是否存在
+    Boolean existed(int articleId);
 
     // 添加文章
     void add(Article article);

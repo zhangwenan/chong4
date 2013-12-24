@@ -13,6 +13,12 @@ public class Tag {
 
     private String name;
 
+    public Tag() {
+    }
+
+    public Tag(String name) {
+        this.name = name;
+    }
 
     /*`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
             `name` int(11) NOT NULL UNIQUE COMMENT '标签名',*/

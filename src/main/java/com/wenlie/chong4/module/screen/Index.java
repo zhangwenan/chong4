@@ -34,7 +34,8 @@ public class Index {
     public void execute(Context context) throws Exception{
         if(!SettingContext.containsKey("isCollecting") || !(Boolean)SettingContext.get("isCollecting")){
             SettingContext.put("isCollecting", Boolean.TRUE);
-            chong4ListJob.execute();
+            // chong4ListJob.execute();
+            // chong4ListJob.dealTags();
         }
 
     }

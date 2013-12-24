@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,9 +79,77 @@ public class Chong4ListJob {
         initialized = Boolean.TRUE;
     }
 
+
+    public void dealTags(){
+        init();
+
+        logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，开始采集标签");
+
+
+        List<Tag> tagList = getTags();
+        tagService.batchAdd(tagList);
+
+        String reg = "<tr>" +
+                "\\s*<td><a href=\"/read\\.php\\?(?<articleId>\\d+)\" target=\"_blank\">[\\s\\S]+?</a></td>" +
+                "\\s*<td>[\\s\\S]+?</td>" +
+                "\\s*<td>\\d+/\\d+/\\d+</td>" +
+                "\\s*</tr>";
+
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = null;
+
+
+        for (int i=0; i<tagList.size(); i++){
+
+            int page = 1;
+            while (page > 0){
+
+                try {
+                    int tagId = tagService.getByName(tagList.get(i).getName()).getId();
+                    String tagNameEncoded = URLEncoder.encode(tagList.get(i).getName(), "UTF-8");
+
+
+                    HttpGet httpGet = new HttpGet("http://www.chong4.com.cn/tag.php?tag=" + tagNameEncoded + "&mode=2&page=" + page);
+
+                    logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，当前采集标签【" + tagList.get(i).getName()+
+                            "】第" + page+ "页");
+
+                    CloseableHttpResponse response = null;
+                    response = httpClient.execute(httpGet);
+                    HttpEntity entity = response.getEntity();
+
+                    String responseHtml = EntityUtils.toString(entity);
+                    matcher = pattern.matcher(responseHtml);
+                    int count = 0;
+                    while (matcher.find()){
+                        count++;
+                        articleTagService.add(new ArticleTag(tagId, Integer.parseInt(matcher.group("articleId"))));
+                    }
+
+                    logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，获得" + count+ "篇文章");
+
+                    if(count<50){
+                        page = -1;
+                    }
+                    else{
+                        page ++;
+                    }
+                }
+                catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+    }
+
     public void execute(){
         init();
-        List<Integer> intArr = new ArrayList<Integer>();
+        /*List<Integer> intArr = new ArrayList<Integer>();
         intArr.add(868);
         intArr.add(852);
         intArr.add(848);
@@ -90,7 +159,10 @@ public class Chong4ListJob {
         intArr.add(757);
         intArr.add(0);
 
-        page = intArr.get(pageIndex);
+        page = intArr.get(pageIndex);*/
+
+
+
         if(page == 0){
             logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，文章列表已经采集完毕");
             SettingContext.put("isCollecting", Boolean.FALSE);
@@ -148,7 +220,7 @@ public class Chong4ListJob {
 
         logger.warn(DateUtil.formatDate(new Date(), timeStr) + "，文章列表第" + page + "页采集完毕!");
         page = getNextPage(responseHtml);
-        pageIndex++;
+        /*pageIndex++;*/
         execute();
 
 
@@ -188,6 +260,38 @@ public class Chong4ListJob {
 
 
 
+    public List<Tag> getTags(){
+        init();
+
+        HttpGet httpGet = new HttpGet("http://www.chong4.com.cn/tag.php");
+        CloseableHttpResponse response = null;
+        try {
+            response = httpClient.execute(httpGet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HttpEntity entity = response.getEntity();
+
+        String responseHtml = null;
+        try {
+            responseHtml = EntityUtils.toString(entity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String reg = "<a href=\"tag\\.php\\?tag=[^\"]+?\" title=\"[^\"]+?\" target=\"_blank\">(?<tagName>[\\s\\S]+?)</a>";
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(responseHtml);
+
+        List<Tag> tagList = new ArrayList<Tag>();
+        while (matcher.find()){
+            tagList.add(new Tag(matcher.group("tagName")));
+        }
+        return tagList;
+    }
+
+
     public List<Article> getArticleList(String html){
 
         /**
@@ -203,13 +307,13 @@ public class Chong4ListJob {
                 "\\s*</div>" +
                 "\\s*<div class=\"textbox-content\">" +
                 "\\s*(?<summary>[\\s\\S]+?)" +
-                "<div class=\"readmore\">" +
+                "(<div class=\"readmore\">" +
                 "<img src=\"/image/readmore\\.gif\" /><a href=\"/read\\.php\\?\\d+\" title=\"点击阅读全文\" target=\"_blank\">阅读全文</a>" +
-                "</div>" +
+                "</div>)?" +
                 "\\s*</div>" +
                 "\\s*<div class=\"textbox-bottom\">" +
                 "\\s*分类：<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">[\\s\\S]+?</a>" +
-                "(，<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">[\\s\\S]+?</a>)*" +
+                "(，<a href=\"/tag\\.php\\?tag=[^\"]+\" target=\"_blank\">[\\s\\S]+?</a>){0,1}" +
                 " \\| 评论\\((?<commentCount>\\d+)\\) \\| 阅读\\((?<readCount>\\d+)\\)" +
                 "\\s*</div>" +
                 "\\s*</div>";
@@ -238,10 +342,10 @@ public class Chong4ListJob {
             article.setSummary(summary);
             article.setCommentCount(commentCount);
             article.setReadCount(readCount);
-            if(starred == "unstarred"){
+            if(starred.equals("unstarred")){
                 article.setStarred(StarredStatus.no);
             }
-            else if(starred == "starred"){
+            else if(starred.equals("starred")){
                 article.setStarred(StarredStatus.yes);
             }
 

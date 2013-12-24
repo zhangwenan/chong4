@@ -35,7 +35,10 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void batchAdd(List<Tag> tags) {
-        sqlSession.insert("Tag.batchAdd", tags);
+        for (int i=0; i< tags.size(); i++){
+            add(tags.get(i));
+        }
+        /*sqlSession.insert("Tag.batchAdd", tags);*/
     }
 
     @Override

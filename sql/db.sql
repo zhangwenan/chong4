@@ -34,7 +34,7 @@ CREATE TABLE `topic` (
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `name` int(11) NOT NULL UNIQUE COMMENT '标签名',
+  `name` varchar(50) NOT NULL COMMENT '标签名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标签表/分类表';
 

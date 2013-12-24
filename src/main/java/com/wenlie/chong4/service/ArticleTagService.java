@@ -11,6 +11,9 @@ import java.util.List;
  */
 public interface ArticleTagService {
 
+    // 是否存在
+    Boolean existed(ArticleTag articleTag);
+
     // 添加
     void add(ArticleTag articleTag);
 
@@ -38,6 +41,9 @@ public interface ArticleTagService {
 
     // 根据 articleId 获取
     ArticleTag getByArticleId(int articleId);
+
+    // 根据 articleId 和 tagId 获取
+    ArticleTag getByArticleTag(ArticleTag articleTag);
 
 
     // 根据标签查询文章

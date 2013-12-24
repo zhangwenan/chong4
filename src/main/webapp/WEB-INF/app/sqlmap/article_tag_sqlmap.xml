@@ -58,6 +58,11 @@
         WHERE article_id = #{VALUE} limit 1
     </select>
 
+    <select id="getByArticleTag" parameterType="int" resultMap="articleTag">
+        SELECT id,tag_id,article_id FROM article_tag
+        WHERE article_id = #{articleId} AND tag_id = #{tagId}
+    </select>
+
 
     <select id="getArticleIdsByTagId" parameterType="int" resultMap="articleTag">
         SELECT id,tag_id,article_id FROM article_tag

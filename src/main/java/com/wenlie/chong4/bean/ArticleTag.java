@@ -17,6 +17,14 @@ public class ArticleTag {
     // 文章原始id
     private int articleId;
 
+    public ArticleTag(int tagId, int articleId) {
+        this.tagId = tagId;
+        this.articleId = articleId;
+    }
+
+    public ArticleTag() {
+    }
+
     /*`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
             `tag_id` int(11) NOT NULL COMMENT '标签id',
             `original_id` int(11) NOT NULL COMMENT '文章原始id',*/

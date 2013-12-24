@@ -17,6 +17,16 @@ public class ArticleTagServiceImpl implements ArticleTagService {
     private SqlSession sqlSession;
 
     @Override
+    public Boolean existed(ArticleTag articleTag) {
+        if(getByArticleTag(articleTag) != null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
+    }
+
+    @Override
     public void add(ArticleTag articleTag) {
         sqlSession.insert("ArticleTag.add", articleTag);
     }
@@ -54,6 +64,11 @@ public class ArticleTagServiceImpl implements ArticleTagService {
     @Override
     public ArticleTag getByArticleId(int articleId) {
         return sqlSession.selectOne("ArticleTag.getByArticleId", articleId);
+    }
+
+    @Override
+    public ArticleTag getByArticleTag(ArticleTag articleTag) {
+        return sqlSession.selectOne("ArticleTag.getByArticleTag", articleTag);
     }
 
     @Override

@@ -65,5 +65,10 @@ public class ArticleServiceImpl implements ArticleService {
         return sqlSession.selectOne("Article.getById", id);
     }
 
+    @Override
+    public List<Article> getNullArticles(int length) {
+        return sqlSession.selectList("Article.getNullArticles", length);
+    }
+
 
 }

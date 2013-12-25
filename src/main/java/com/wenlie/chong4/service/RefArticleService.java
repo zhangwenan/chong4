@@ -11,6 +11,10 @@ import java.util.List;
 public interface RefArticleService {
 
 
+    // 是否存在
+    Boolean existed(RefArticle refArticle);
+
+
     // 添加
     void add(RefArticle refArticle);
 
@@ -29,4 +33,6 @@ public interface RefArticleService {
 
     // 根据 文章id，查询相关推荐的文章
     List<Integer> getRefArticleIdsByArticleId(int articleId);
+
+    RefArticle getByArticleIdAndRefArticleId(RefArticle refArticle);
 }

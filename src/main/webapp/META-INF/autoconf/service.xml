@@ -46,9 +46,17 @@
 
 
     <bean name="chong4ListJob" class="com.wenlie.chong4.job.Chong4ListJob"></bean>
+    <bean name="chong4ArticleJob" class="com.wenlie.chong4.job.Chong4ArticleJob"></bean>
 
     <bean id="chong4ListJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="chong4ListJob" />
+        <property name="targetMethod" value="execute" />
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean id="chong4ArticleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="chong4ArticleJob" />
         <property name="targetMethod" value="execute" />
         <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
         <property name="concurrent" value="false"/>
@@ -65,12 +73,24 @@
     </bean>
 
 
+    <bean id="chong4ArticleJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="chong4ArticleJobDetail" />
+        </property>
+
+        <property name="cronExpression">
+            <value>0/30 * * * * ?</value>
+        </property>
+    </bean>
+
+
     <bean name="startQuertz" lazy-init="false" autowire="no"
           class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 
         <property name="triggers">
             <list>
                 <!--<ref bean="chong4ListJobTrigger" />-->
+                <ref bean="chong4ArticleJobTrigger" />
             </list>
         </property>
         <!-- <property name="autoStartup" value="true"/>  -->

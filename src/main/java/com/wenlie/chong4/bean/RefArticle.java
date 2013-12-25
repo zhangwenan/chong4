@@ -17,6 +17,13 @@ public class RefArticle {
     // 相关文章的原始id
     private int refArticleId;
 
+    public RefArticle() {
+    }
+
+    public RefArticle(int articleId, int refArticleId) {
+        this.articleId = articleId;
+        this.refArticleId = refArticleId;
+    }
 
     /*`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
             `original_id` int(11) NOT NULL COMMENT '文章原始id',

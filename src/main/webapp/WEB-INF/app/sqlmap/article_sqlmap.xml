@@ -124,6 +124,22 @@
         WHERE id = #{VALUE}
     </select>
 
+    <select id="getNullArticles" parameterType="int" resultMap="article">
+        SELECT
+        id,
+        title,
+        summary,
+        content,
+        author,
+        create_time,
+        publish_time,
+        starred,
+        comment_count,
+        read_count
+        FROM article
+        WHERE content IS NULL limit #{VALUE}
+    </select>
+
 
 
 </mapper>

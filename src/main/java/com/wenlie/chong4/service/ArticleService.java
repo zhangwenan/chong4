@@ -27,4 +27,7 @@ public interface ArticleService {
     // 根据id查询
     Article getById(int id);
 
+
+    List<Article> getNullArticles(int length);
+
 }

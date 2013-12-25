@@ -16,6 +16,16 @@ public class RefArticleServiceImpl implements RefArticleService {
     private SqlSession sqlSession;
 
     @Override
+    public Boolean existed(RefArticle refArticle) {
+        if(getByArticleIdAndRefArticleId(refArticle) != null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
+    }
+
+    @Override
     public void add(RefArticle refArticle) {
         sqlSession.insert("RefArticle.add", refArticle);
     }
@@ -43,5 +53,10 @@ public class RefArticleServiceImpl implements RefArticleService {
     @Override
     public List<Integer> getRefArticleIdsByArticleId(int articleId) {
         return sqlSession.selectList("RefArticle.getRefArticleIdsByArticleId", articleId);
+    }
+
+    @Override
+    public RefArticle getByArticleIdAndRefArticleId(RefArticle refArticle) {
+        return sqlSession.selectOne("RefArticle.getByArticleIdAndRefArticleId", refArticle);
     }
 }

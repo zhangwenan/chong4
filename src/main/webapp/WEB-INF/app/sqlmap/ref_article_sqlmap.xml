@@ -68,4 +68,14 @@
         WHERE article_id = #{VALUE}
     </select>
 
+    <select id="getByArticleIdAndRefArticleId" parameterType="refArticle" resultMap="refArticle">
+        SELECT
+        id,
+        article_id,
+        ref_article_id
+
+        FROM ref_article
+        WHERE article_id = #{articleId} AND ref_article_id = #{refArticleId}
+    </select>
+
 </mapper>
